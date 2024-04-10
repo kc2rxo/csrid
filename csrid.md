@@ -2,8 +2,8 @@
 coding: utf-8
 
 title: Crowd Sourced Remote ID
-abbrev: DETIM Architecture
-docname: draft-wiethuechter-drip-csrid-01
+abbrev: CS-RID
+docname: draft-wiethuechter-drip-csrid-02
 category: std
 
 ipr: trust200902
