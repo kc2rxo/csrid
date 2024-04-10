@@ -1,0 +1,35 @@
+; Finder Report Endorsement
+; e-type=???, can be used in UDP/TCP
+$$scope-ext //= (
+  #6.103,
+  ? radius: float  ; meters
+)
+$$evidence //= ([+ #6.xxx(ufr)],)
+$$endorser //= (hhit,)
+$$signature //= (eddsa25519-sig,)
+
+; Unsigned Finder Report
+; Can be used in Endorsements, JWT, CWT, HIP, DTLS
+ufr-tag = #6.xxx(ufr)
+ufr = {
+  timestamp: time,
+  ? priority: uint .size(2),  ; For HIP/DTLS
+  ? track_id: uint .size(2),  ; For HIP/DTLS, 0=Mixed Detections
+  ? position: #6.103,
+  ? radius: float,  ; meters
+  detection_count: 1..10,
+  detections: [+ #6.xxx(detection)],
+}
+
+detection-tag = #6.xxx(detection)
+detection = {
+  timestamp: time,
+  ? position: #6.103(array),
+  ? radius: float,  ; meters
+  interface: [+ i-face],
+  data: bstr / #6.xxx(astm-message) / #6.xxx(uas-data)
+}
+
+i-face = (bcast-type, mac-addr)
+bcast-type = 0..3 ; BLE Legacy, BLE Long Range, Wi-Fi NAN, 802.11 Beacon
+mac-addr = #6.48(bstr)

@@ -1,0 +1,64 @@
+; F3411 Prelude
+
+; Basic ID (0x0) Fields
+uas-type = nibble-field
+uas-id-type = nibble-field
+uas-id = bstr .size(20)
+
+; Location (0x1) Fields
+status = nibble-field
+height-type = bool
+track-direction = uint
+horz-spd = uint .size(1)
+vert-spd = uint .size(1)
+baro-alt = uint .size(2)
+height = uint .size(2)
+h-acc = nibble-field
+v-acc = nibble-field
+b-acc = nibble-field
+s-acc = nibble-field
+t-acc = nibble-field
+timemark = uint .size(2)  ; tenths of seconds since current hour
+
+; Authentication (0x2) Fields
+page-num = nibble-field
+a-type = nibble-field
+lpi = nibble-field
+length = uint .size(1)
+auth-ts = time  ; converted from ASTM F3411-22a epoch
+pg-data = bstr .size(23)
+a-data = bstr .size(0..255)
+adl = uint .size(1)
+add-data = bstr .size(0..255)
+
+; Self ID (0x3) Fields
+desc-type = uint .size(1)
+desc = tstr .size(23)
+
+; System (0x4) Fields
+op-type = 0..3
+class-type = 0..8
+area-count = 1..255
+area-radius = float
+area-floor = float
+area-ceiling = float
+eu-class = nibble-field
+eu-cat = nibble-field
+utc-timestamp = time  ; converted from ASTM F3411-22a epoch
+
+; Operator ID (0x5) Fields
+op-id-type = uint .size(1)
+op-id = tstr .size(20)
+
+; Message Pack (0xF) Fields
+m-size = uint .size(1)  ; always set to decimal 25
+num-messages = 1..9
+
+; Other fields
+m-counter = uint .size(1)
+m-type = nibble-field
+p-ver = nibble-field
+lat = uint .size(4)      ; scaled by 10^7
+lon = uint .size(4)      ; scaled by 10^7
+geo-alt = uint .size(2)  ; WGS84-HAE in meters
+nibble-field = 0..15

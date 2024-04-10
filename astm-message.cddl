@@ -1,0 +1,24 @@
+; use f3411 prelude
+
+astm-tag = #6.xxx(astm-message)
+astm-message = b-message / mp-message
+
+; Message (m-type)
+; Message Pack (0xF)
+mp-message = [m-counter, m-type, p-ver, m-size, num-messages, [+ b-message]]
+
+b-message = [m-counter, m-type, p-ver, $$b-data]
+
+; Basic ID (0x0), Location (0x1)
+$$b-data //= (uas-type, uas-id-type, uas-id)
+$$b-data //= (status, height-type, track-direction, horz-spd, vert-spd, lat, lon, geo-alt baro-alt, height, h-acc, v-acc, b-acc, s-acc, t-acc, timemark)
+
+; Authentication (0x2)
+; When page-num is 0, all fields filled and pg-data is 17-bytes (rest null padded)
+; When page-num is 1-15, pg-data is full and lpi, len, auth-ts are zeroed (nulled) out
+$$b-data //= (page-num, a-type, lpi, length, auth-ts, pg-data)
+
+; Self ID (0x3), System (0x4), Operator ID (0x5)
+$$b-data //= (desc-type, desc)
+$$b-data //= (op-type, class-type, lat, lon, area-count, area-radius, area-floor, area-ceiling, geo-alt, eu-class, eu-cat, utc-timestamp)
+$$b-data //= (op-id-type, op-id)

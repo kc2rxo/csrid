@@ -1,0 +1,31 @@
+; use f3411 prelude
+
+; Aggregate data object. Only use keys that have changed.
+uas-tag = #6.xxx(uas-data)
+uas-data = {
+? uas_type: uas-type,
+? uas_id_type: uas-id-type,
+? uas_id: uas-id,
+? ua_status: status,
+? track_direction: track-direction,
+? ua_geo_position: #6.103(array)
+? ua_baro_altitude: baro-alt,
+? ua_height: height,
+? vertical_speed: vert-spd,
+? horizontal_speed: horz-spd,
+? auth_type: a-type,
+? auth_data: a-data,
+? additional_data: add-data,
+? self_id: desc,
+? ua_classification: class-type
+? operator_type: op-type,
+? operator_geo_position: #6.103(array)
+? area_count: area-count,
+? area_radius: area-radius,
+? area_floor: area-floor,
+? area_ceiling: area-ceiling,
+? eu_class: eu-class,
+? eu_category: eu-cat,
+? system_timestamp: utc-timestamp,
+? operator_id: op-id
+}
